@@ -7,6 +7,6 @@ public class ConsoleConsumer extends Consumer {
 	}
 	
 	public void consumeData(Entry entry) {
-		System.out.println(System.nanoTime() + "##### CONSUMER " + entry + " " + Thread.currentThread().getName());
+		System.out.println(System.nanoTime() + "##### CONSUMER "+this.ringBuffer.consumers + entry + " " +ringBuffer.getIterationIndex() +" "+Thread.currentThread().getName());
 	}
 }

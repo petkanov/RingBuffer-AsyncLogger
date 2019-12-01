@@ -7,7 +7,7 @@ public class AsyncLogger implements Logger{
 	private final RingBuffer queue;
 	
 	private AsyncLogger() {
-		this.queue = new RingBuffer(2048);
+		this.queue = new RingBuffer(4096);
 	}
 	
     private static class Instance {

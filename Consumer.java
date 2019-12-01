@@ -3,10 +3,10 @@ package asynclogger;
 public abstract class Consumer implements Runnable {
 	public static final String CONSOLE_CONSUMER = "console.consumer";
 	
-	private static final long MIN_PROD_CONS_DISTANCE = 325;
-	private static final int ENTRY_RETRY_NUMBER = 5;
-	private long consumerIncrementIndex = 0;
-	private final RingBuffer ringBuffer;
+	private static final long MIN_PROD_CONS_DISTANCE = 525;
+	private static final int ENTRY_RETRY_NUMBER = 3;
+	public long consumerIncrementIndex = 0;
+	public final RingBuffer ringBuffer;
 	private Object lock;
 	private int retry;
 	
@@ -26,7 +26,6 @@ public abstract class Consumer implements Runnable {
 			synchronized (lock) {
 				if (!ringBuffer.isIndexCommited(consumerIncrementIndex) && retry-- > 0) {
 					try {
-						              System.out.println(System.nanoTime() + " waiting for index "+ Thread.currentThread().getName() + " votes: " + ringBuffer.commitedIndexToVotesMap.get(ringBuffer.toRingIndex(consumerIncrementIndex)).get());
 						lock.wait();
 					} catch (InterruptedException e) {
 						break;
@@ -34,6 +33,7 @@ public abstract class Consumer implements Runnable {
 					continue;
 				}
 			}
+			
 			final Entry entry = ringBuffer.getEntry(consumerIncrementIndex);
 			
 			consumeData(entry);
@@ -80,5 +80,12 @@ public abstract class Consumer implements Runnable {
 
 	public void setLock(Object lock) {
 		this.lock = lock;
+	}
+
+	@Override
+	public String toString() {
+		return "Consumer [" + consumerIncrementIndex + ","+
+	                        ringBuffer.commitedIndexToVotesMap.get(ringBuffer.toRingIndex(consumerIncrementIndex)).get()+
+ 		                    ringBuffer.commitedIndexToVotesMap.get(ringBuffer.toRingIndex(consumerIncrementIndex+1)).get()+"]";
 	}
 }

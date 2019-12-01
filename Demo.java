@@ -9,6 +9,11 @@ public class Demo {
     			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
     			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
     			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
+    			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
+    			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
+    			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
+    			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
+    			                      .createConsumer(Consumer.CONSOLE_CONSUMER)
     			                      .activate();
 
     	
@@ -44,11 +49,47 @@ public class Demo {
         		}
         	}
         });
+        Thread prod5 = new Thread(new Runnable() {
+        	@Override
+        	public void run() {
+        		for (int q = 0; q < 1701; q++) {
+        			log.logData(Thread.currentThread().getName());
+        		}
+        	}
+        });
+        Thread prod6 = new Thread(new Runnable() {
+        	@Override
+        	public void run() {
+        		for (int q = 0; q < 1701; q++) {
+        			log.logData(Thread.currentThread().getName());
+        		}
+        	}
+        });
+        Thread prod7 = new Thread(new Runnable() {
+        	@Override
+        	public void run() {
+        		for (int q = 0; q < 1701; q++) {
+        			log.logData(Thread.currentThread().getName());
+        		}
+        	}
+        });
+        Thread prod8 = new Thread(new Runnable() {
+        	@Override
+        	public void run() {
+        		for (int q = 0; q < 1701; q++) {
+        			log.logData(Thread.currentThread().getName());
+        		}
+        	}
+        });
 
         prod.start();
         prod2.start();
         prod3.start();
         prod4.start();
+        prod5.start();
+        prod6.start();
+        prod7.start();
+        prod8.start();
 
         try {
             prod.join();

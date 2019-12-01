@@ -18,7 +18,7 @@ public class RingBuffer {
 	public final Map<Integer, AtomicInteger> commitedIndexToVotesMap;
 
 	private final ExecutorService executor;
-	private final List<Consumer> consumers;
+	public final List<Consumer> consumers;
 	
 	private final Object lock = new Object();
 	
